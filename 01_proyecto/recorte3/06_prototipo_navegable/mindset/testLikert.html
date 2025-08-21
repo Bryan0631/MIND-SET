@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Test de Likert</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Test de Likert</h1>
+        </div>
+        <form id="likertForm">
+            <table>
+                <tr>
+                    <th>Pregunta</th>
+                    <th>1<br><small>Totalmente en desacuerdo</small></th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5<br><small>Totalmente de acuerdo</small></th>
+                </tr>
+                <tr>
+                    <td>Me siento motivado para alcanzar mis metas.</td>
+                    <td><input type="radio" name="q1" value="1" required></td>
+                    <td><input type="radio" name="q1" value="2"></td>
+                    <td><input type="radio" name="q1" value="3"></td>
+                    <td><input type="radio" name="q1" value="4"></td>
+                    <td><input type="radio" name="q1" value="5"></td>
+                </tr>
+                <tr>
+                    <td>Disfruto aprender cosas nuevas.</td>
+                    <td><input type="radio" name="q2" value="1" required></td>
+                    <td><input type="radio" name="q2" value="2"></td>
+                    <td><input type="radio" name="q2" value="3"></td>
+                    <td><input type="radio" name="q2" value="4"></td>
+                    <td><input type="radio" name="q2" value="5"></td>
+                </tr>
+                <tr>
+                    <td>Me adapto fácilmente a los cambios.</td>
+                    <td><input type="radio" name="q3" value="1" required></td>
+                    <td><input type="radio" name="q3" value="2"></td>
+                    <td><input type="radio" name="q3" value="3"></td>
+                    <td><input type="radio" name="q3" value="4"></td>
+                    <td><input type="radio" name="q3" value="5"></td>
+                </tr>
+                <tr>
+                    <td>Trabajo bien bajo presión.</td>
+                    <td><input type="radio" name="q4" value="1" required></td>
+                    <td><input type="radio" name="q4" value="2"></td>
+                    <td><input type="radio" name="q4" value="3"></td>
+                    <td><input type="radio" name="q4" value="4"></td>
+                    <td><input type="radio" name="q4" value="5"></td>
+                </tr>
+                <tr>
+                    <td>Me considero una persona optimista.</td>
+                    <td><input type="radio" name="q5" value="1" required></td>
+                    <td><input type="radio" name="q5" value="2"></td>
+                    <td><input type="radio" name="q5" value="3"></td>
+                    <td><input type="radio" name="q5" value="4"></td>
+                    <td><input type="radio" name="q5" value="5"></td>
+                </tr>
+            </table>
+            <div>
+                <button type="submit">Ver resultados</button>
+            </div>
+        </form>
+        <div id="result" style="display:none;"></div>
+        <div class="dashboard-links" style="justify-content: center;">
+            <a href="dashboard.html">Volver al Dashboard</a>
+        </div>
+    </div>
+    <script>
+        document.getElementById('likertForm').onsubmit = function(e) {
+            e.preventDefault();
+            let total = 0;
+            for(let i=1; i<=5; i++) {
+                let val = document.querySelector('input[name="q'+i+'"]:checked').value;
+                total += parseInt(val);
+            }
+            let interpretacion = '';
+            if(total <= 10) {
+                interpretacion = 'Muy bajo. Podrías trabajar en tu desarrollo personal.';
+            } else if(total <= 15) {
+                interpretacion = 'Bajo. Hay áreas de mejora en tu mindset.';
+            } else if(total <= 20) {
+                interpretacion = 'Medio. Vas por buen camino, sigue creciendo.';
+            } else {
+                interpretacion = 'Alto. ¡Excelente actitud y mentalidad!';
+            }
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerHTML = 
+                '<strong>Tu puntaje total es: ' + total + ' / 25</strong><br>' +
+                interpretacion;
+        };
+    </script>
